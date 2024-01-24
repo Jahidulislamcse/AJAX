@@ -22,7 +22,7 @@
 
         echo $output;
         
-    } else {
+    } else { 
         echo "<h2>No data found</h2>";
     }
 ?>

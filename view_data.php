@@ -17,7 +17,6 @@
             <td id="load-table">
                 <input type="button" id="load-button" value="Load Data">
                 <input type="button" id="erase" value="Erase Data">
-
             </td>
         </tr>
         <tr>
