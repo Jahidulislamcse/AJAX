@@ -4,20 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        #success-message{
-            background-color: #DEF1D8; color: green; padding: 10px;
-            margin: 10px; display: none; position: absolute; right: 15px; top: 15px; }
-        #error-message{
-            background-color: #EFDCDD; color: red;padding: 10px;
-            margin: 10px; display: none; position: absolute; right: 15px; top: 15px; }
-        #header{ background-color: bisque; text-align: center; }
-        #table-form{background-color: aquamarine;}
-        #table-data{background-color: gainsboro;}
-        #studentid{width: 70px;}
-        #studentclass{width: 90px;}
-        .delete-btn{background-color: red; color: white; padding: 4px 10px; border-radius: 3px;}
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -47,6 +34,25 @@
     <div id="error-message"></div>
     <div id="success-message"></div>
 
+    <div id="modal">
+        <div id="modal-form">
+            <h2>Edit Form</h2>
+            <table cellpadding="10px" width="100%">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" id="edit-name"></td>
+                </tr>
+                <tr>
+                    <td>Class</td>
+                    <td><input type="number" id="edit-class"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" id="edit-submit" value="Save"></td>
+                </tr>
+            </table>
+            <div id="close-btn">X</div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="js/jquery.js"></script>
 
@@ -63,7 +69,7 @@
             }
             loadTable();
 
-
+            //Add Operation
             $("#save").on('click', function(e){
                 
                 e.preventDefault();
@@ -96,6 +102,8 @@
                 });
                 }
             });
+
+            //Delete Operation
             $(document).on('click', ".delete-btn", function(){
                 if(confirm("Are you sure you want to delete this")){
 
@@ -117,6 +125,18 @@
                     }
                 });
               };
+            });
+
+            //Show Modal Box
+            $(document).on('click', ".edit-btn", function(){
+               $("#modal").show();
+               var studentId = $(this).data("eid");
+               alert(studentId);
+            });
+
+            //Hide Modal Box
+            $("#close-btn").on('click', function(){
+                $("#modal").hide();
             });
         });
 
