@@ -37,19 +37,7 @@
     <div id="modal">
         <div id="modal-form">
             <h2>Edit Form</h2>
-            <table cellpadding="10px" width="100%">
-                <tr>
-                    <td>Name</td>
-                    <td><input type="text" id="edit-name"></td>
-                </tr>
-                <tr>
-                    <td>Class</td>
-                    <td><input type="number" id="edit-class"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" id="edit-submit" value="Save"></td>
-                </tr>
-            </table>
+            <table cellpadding="10px" width="100%"> </table>
             <div id="close-btn">X</div>
         </div>
     </div>
@@ -131,13 +119,47 @@
             $(document).on('click', ".edit-btn", function(){
                $("#modal").show();
                var studentId = $(this).data("eid");
-               alert(studentId);
+               
+               $.ajax({
+                url: "load-update-form.php",
+                method: "POST",
+                data: {id: studentId},
+                success: function(data){
+                    $("#modal-form table").html(data);
+                }
+               });
             });
 
             //Hide Modal Box
             $("#close-btn").on('click', function(){
                 $("#modal").hide();
             });
+
+
+            //Save Updated form 
+             $(document).on('click', "#edit-submit", function(){
+                var studentId = $("#studentId").val();
+                var studentName = $("#edit-name").val();
+                var studentClass = $("#edit-class").val();
+                $.ajax ({
+                   url: "ajax-update-form.php",
+                   type: "POST",
+                   data: {id: studentId, name: studentName, class: studentClass},
+                   
+                   success: function(data){
+                    if(data==1){
+                    $("#modal").hide();
+                    $("#success-message").html("Record updated successfully").slideDown();
+                    loadTable();
+                    }
+                    else{
+                        $("#error-message").html("Can't update record").slideDown();
+                        $("#success-message").slideUp();
+                    }
+                   }
+
+                });
+                });
         });
 
          
