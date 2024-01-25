@@ -11,9 +11,14 @@
      <table id="main" border="0" >
         <tr>
             <td id="header">
-                <h1>INSERT DATA USING AJAX</h1>
+                <h1>PHP WITH JQUERY AND AJAX</h1>
             </td>
         </tr>
+
+         <div id="search-bar">
+                <label for="">Search</label>
+                <input type="text" id="search" autocomplete="off">
+        </div>
 
         <tr>
             <td id="table-form">
@@ -159,6 +164,20 @@
                    }
 
                 });
+                });
+
+                $("#search").on('keyup', function(){
+                    var search_item = $(this).val();
+
+                    $.ajax({
+                        url: "ajax-live-search.php",
+                        type: "POST",
+                        data: {search: search_item},
+
+                        success: function(data){
+                            $("#table-data").html(data);
+                        }
+                    });
                 });
         });
 
